@@ -1,4 +1,4 @@
-Copyright (c) 2022 Bryan Veit
+Copyright (c) 2022 Bryan Veit and dynamicly developers.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 

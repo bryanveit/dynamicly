@@ -1,10 +1,10 @@
 import numpy as np
-from dynamicly.misc.unit_conversion import (m_to_in, ft_to_m, m_to_ft,
-                                            kg_per_m3_to_slug_per_ft3, )
+from dynamicly.misc.units import (m_to_in, ft_to_m, m_to_ft,
+                                  kg_per_m3_to_slug_per_ft3, )
 from dynamicly.misc.octave import octave
 from ambiance import Atmosphere
 from scipy.interpolate import interp1d
-from dynamicly.signal.calc_oaspl import calc_oaspl
+from dynamicly.signal.oaspl import calc_oaspl
 import pandas as pd
 pd.options.mode.chained_assignment = None  # default='warn'
 

@@ -1,6 +1,6 @@
 import numpy as np
-from dynamicly.misc.unit_conversion import (m_to_in, kg_per_m3_to_lbm_per_in3,
-                                            Pa_to_psi)
+from dynamicly.misc.units import (m_to_in, kg_per_m3_to_lbm_per_in3,
+                                  Pa_to_psi)
 from scipy.interpolate import interp1d
 
 franken_curve = np.column_stack(

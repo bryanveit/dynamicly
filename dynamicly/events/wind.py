@@ -1,4 +1,4 @@
-from dynamicly.misc.unit_conversion import *
+from dynamicly.misc.units import *
 def vortex_shedding_freq(wind_speed,
                          wind_unit='mph',
                          diameter=72,

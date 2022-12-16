@@ -1,14 +1,13 @@
 import numpy as np
-import matplotlib
 from matplotlib import pyplot as plt
-from dynamicly.calc_rms import calc_rms
-from dynamicly.maximax import maximax
-from dynamicly.quick_dictionary import quick_dict
+from dynamicly.signal.rms import calc_rms_psd
+
+from dynamicly.misc.extrema import maximax
+from dynamicly.misc.dictionary import quick_dict
 
 from dynamicly import plotting as plot
 from dynamicly.utils.psd import calc_psd_windows, calc_psd
-from dynamicly import levels
-
+from dynamicly import standards
 
 def plot_psd(data, title=None, axis=None, xlim=None):
     if axis is not None:
@@ -41,12 +40,9 @@ def plot_psd(data, title=None, axis=None, xlim=None):
         ax.get_lines()[0].set_color('k')
     return fig, ax
 
-
-# Idealy this would utilize plot_psd but I am not entirely sure how axes and
-# figures work in matplotlib to add a table beneath exisiting plot
 def plot_psd_spec(data, title=None, sigfigs=3, rms_decimals=1,
                   atp_duraiton=60, qtp_duration=180,
-                  duration_unit='s', colors='Firefly'):
+                  duration_unit='s'):
     fig, (ax, tab) = plt.subplots(2, 1)
     fig.set_size_inches(8.5, 11)
 
@@ -137,7 +133,7 @@ def plot_psd_spec(data, title=None, sigfigs=3, rms_decimals=1,
     # )
     rms_row = ['gRMS:']
     for col in psd_values.T:
-        rms = calc_rms(np.column_stack([freq_np,
+        rms = calc_rms_psd(np.column_stack([freq_np,
                                         col]))
         rms = f'{np.round(rms, rms_decimals)}'
         rms_row.append(rms)
@@ -190,7 +186,7 @@ def plot_psd_spec(data, title=None, sigfigs=3, rms_decimals=1,
 
 
 def grms_labels(dictionary):
-    new_dict = {f'{key}   ({calc_rms(val, round=1)} gRMS)': val for key, val in
+    new_dict = {f'{key}   ({calc_rms_psd(val, round=1)} gRMS)': val for key, val in
                 dictionary.items()}
     return new_dict
 
@@ -231,8 +227,8 @@ def plot_psd_waterfall(psd_windows, title=None, axis=None,
                   )
 
     if plot_smc:
-        ax.loglog(levels.smc()[:, 0],
-                  levels.smc()[:, -1],
+        ax.loglog(standards.smc()[:, 0],
+                  standards.smc()[:, -1],
                   color='k',
                   linewidth=2,
                   # label='Maximum'
@@ -248,7 +244,6 @@ def plot_psd_waterfall(psd_windows, title=None, axis=None,
         ax.get_lines()[0].set_color('k')
 
     return fig, ax
-
 
 def plot_psd_duo(time_history, psd_windows=None, psd_max=None, title=None,
                  full_time_history=None, time_windows=None, cmap=None):
@@ -327,7 +322,7 @@ def plot_psd_trio(time_history, psd_windows=None, psd_max=None, title=None,
     plot3 = {
         'Maximax': psd_max,
         'Average': psd_average,
-        'SMC-S-016 Minimum Workmaship': levels.smc()
+        'SMC-S-016 Minimum Workmaship': standards.smc()
     }
 
     fig, ax3 = plot_psd(plot3, axis=ax3)
@@ -345,28 +340,3 @@ def plot_psd_trio(time_history, psd_windows=None, psd_max=None, title=None,
     ax3.legend()
 
     return fig, (ax1, ax2, ax3)
-
-
-# def rms_dict_keys(dictionary):
-#     dyn.calc
-
-if __name__ == '__main__':
-    # plt.rcParams["font.family"] = "Times New Roman"
-    # # atp = np.column_stack([[20, 150, 200, 205, 210, 215, 220, 225, 230, 235],
-    # #                        [.055, .1, .1,.3,.3,.3,.3,.3,.3,.3]])
-    # atp = np.column_stack([[20, 150, 2000],
-    #                        [.055, .100000000006, .1]])
-    # qtp = np.column_stack([atp[:, 0],
-    #                        atp[:, -1] * 4])
-    #
-    # plot_dict = {
-    #     'QTP': qtp,
-    #     'ATP': atp,
-    # }
-    #
-    # f, a, t = plot_psd_spec(plot_dict)
-
-    from dynamicly.io import loadmat
-
-    time = loadmat('../sample files/R3-AXFPH-RAD-D.mat')['time']
-    fig, axes = plot_psd_duo(time)

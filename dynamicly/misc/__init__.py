@@ -17,5 +17,3 @@ from .transmissibility import (calc_transmissibility, power_to_dB,
 from .extrema import maximax, max_in_range, minimum
 from .dictionary import quick_dict, key_contains, first
 from .pdf import merge_pdfs
-
-import units

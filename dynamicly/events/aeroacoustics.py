@@ -1,6 +1,6 @@
 import numpy as np
 from dynamicly.misc.units import (m_to_in, ft_to_m, m_to_ft,
-                                  kg_per_m3_to_slug_per_ft3, )
+                                  kg_per_m3_to_slug_per_ft3)
 from dynamicly.misc.octave import octave
 from ambiance import Atmosphere
 from scipy.interpolate import interp1d

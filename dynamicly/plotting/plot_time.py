@@ -57,6 +57,7 @@ def plot_time(data, title=None, x_unit='s', x_label=None,
     for line in ax.get_lines():
         line.set_linewidth(0.5)
     ax.grid(which='both', color=[0.9, 0.9, 0.9])
+    fig.set_size_inches(12,4)
     return fig, ax
 
 

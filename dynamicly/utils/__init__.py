@@ -1,5 +1,5 @@
-from .psd import (calc_psd, calc_psd_max, calc_psd_windows,
-                  omit_transient_windows, make_windows)
+from .psd import (calc_psd, calc_psd_max, calc_psd_windows, make_windows)
+# from .psd import omit_transient_windows
 
 from .vrs import calc_fvrs, miles_equation
 from .srs import calc_srs

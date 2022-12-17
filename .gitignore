@@ -17,3 +17,4 @@
 /dynamicly/utils/spl.py
 /dynamicly/utils/fatigue.py
 /dynamicly/io/load_tdms.py
+/dynamicly/utils/omit_transient_windows.py
